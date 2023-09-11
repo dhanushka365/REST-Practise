@@ -12,8 +12,8 @@ using REST_Practise.Data;
 namespace REST_Practise.Migrations
 {
     [DbContext(typeof(ERPContext))]
-    [Migration("20230908075316_Table update 4")]
-    partial class Tableupdate4
+    [Migration("20230911120049_Initial-asd123dsdssdfsgkbadklklklkhddsadasdcvxs")]
+    partial class Initialasd123dsdssdfsgkbadklklklkhddsadasdcvxs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,13 +27,12 @@ namespace REST_Practise.Migrations
 
             modelBuilder.Entity("REST_Practise.Model.Department", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DepartmentName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -43,52 +42,53 @@ namespace REST_Practise.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            Id = new Guid("ee357f8d-d882-4512-a6cf-ff5dbb3b14ff"),
                             DepartmentName = "Engineering"
                         },
                         new
                         {
-                            Id = 2,
+                            Id = new Guid("0200d49e-05dc-4f5d-a3af-01eda1629be6"),
                             DepartmentName = "Quality Assuarance"
                         },
                         new
                         {
-                            Id = 3,
+                            Id = new Guid("faabd354-f4ea-4f70-bc3b-28ccff7051ca"),
                             DepartmentName = "Human Resource"
                         },
                         new
                         {
-                            Id = 4,
+                            Id = new Guid("03b8e584-1938-446a-a149-0fabdadb4f5a"),
                             DepartmentName = "Support"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = new Guid("d8172a0c-a660-477c-b488-997e21153f4a"),
                             DepartmentName = "Managed Services"
                         });
                 });
 
             modelBuilder.Entity("REST_Practise.Model.Employee", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BOD")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DepartmentId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfileImage")
@@ -99,49 +99,58 @@ namespace REST_Practise.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Employees");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "100/128 padukka Road Horana",
-                            BOD = new DateTime(1996, 8, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DepartmentId = 1,
-                            Name = "Pasindu Uduwela",
-                            Position = "Associate",
-                            ProfileImage = "WWW.pasindu.lk"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "100 Homagama Road Maharagama",
-                            BOD = new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DepartmentId = 2,
-                            Name = "Kasun Akalanka",
-                            Position = "Associate",
-                            ProfileImage = "WWW.kasun.lk"
-                        });
                 });
 
             modelBuilder.Entity("REST_Practise.Model.Profile", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
 
-                    b.Property<string>("Password")
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
@@ -157,27 +166,46 @@ namespace REST_Practise.Migrations
 
             modelBuilder.Entity("REST_Practise.Model.Role", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("uniqueidentifier");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("2da55f73-7a4d-4fde-acf9-971a6ca00d6d"),
+                            ConcurrencyStamp = "",
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = new Guid("e310b041-6333-4ef6-bea7-0c4534e2e0df"),
+                            ConcurrencyStamp = "",
+                            Name = "user",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("REST_Practise.Model.Salary", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("BasicSalary")
                         .HasColumnType("float");
@@ -185,30 +213,14 @@ namespace REST_Practise.Migrations
                     b.Property<double>("Bonus")
                         .HasColumnType("float");
 
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Salarys");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BasicSalary = 100000.0,
-                            Bonus = 60000.0,
-                            EmployeeId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BasicSalary = 200000.0,
-                            Bonus = 40000.0,
-                            EmployeeId = 2
-                        });
                 });
 
             modelBuilder.Entity("REST_Practise.Model.Employee", b =>

@@ -17,7 +17,7 @@ namespace REST_Practise.Model.Repositories
             return await dbContext.Departments.ToListAsync();
         }
 
-        public async Task<Department> GetByIdAsync(int id)
+        public async Task<Department> GetByIdAsync(Guid id)
         {
             return await dbContext.Departments.FindAsync(id);
         }
@@ -36,7 +36,7 @@ namespace REST_Practise.Model.Repositories
             return department;
         }
 
-        public async Task<Department> DeleteAsync(int id)
+        public async Task<Department> DeleteAsync(Guid id)
         {
             var department = await dbContext.Departments.FindAsync(id); // Find the department by ID
 

@@ -26,12 +26,12 @@ namespace REST_Practise.Model.Repositories
             return employee;
         }
 
-        public async Task<Employee> GetByIdAsync(int id)
+        public async Task<Employee> GetByIdAsync(Guid id)
         {
             return await dbcontext.Employees.FindAsync(id);
         }
 
-        public async Task<Employee> DeleteAsync(int id)
+        public async Task<Employee> DeleteAsync(Guid id)
         {
             var employee = await dbcontext.Employees.FindAsync(id); // Find the department by ID
 

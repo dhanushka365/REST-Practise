@@ -1,47 +1,45 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using REST_Practise.Data;
-using REST_Practise.Model;
 using REST_Practise.Model.DTO;
 using REST_Practise.Model.Repositories;
+using REST_Practise.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace REST_Practise.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProfileController : ControllerBase
+    public class RoleController : ControllerBase
     {
+        private readonly IRoleRepository _roleRepository;
         private readonly ERPContext _dbContext;
-        private readonly IProfileRepository _profileRepository;
         private readonly IMapper _mapper;
 
-
-        public ProfileController(ERPContext dbContext, IMapper mapper, IProfileRepository profileRepository)
+        public RoleController(ERPContext dbContext, IMapper mapper, IRoleRepository roleRepository)
         {
             _dbContext = dbContext;
             _mapper = mapper;
-            _profileRepository = profileRepository;
+            _roleRepository = roleRepository;
         }
-
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            // Use Entity Framework Core to retrieve departments from the database
-            var profiles = await _dbContext.Profiles.ToListAsync();
+
+            var roles = await _dbContext.Roles.ToListAsync();
 
             // Use the department repository to retrieve additional department data
-            var profileDomainModels = await _profileRepository.GetAllAsync();
+            var roleDomainModels = await _roleRepository.GetAllAsync();
 
             // Map the department data to DTOs using AutoMapper
-            var profileDtos = _mapper.Map<List<ProfileDto>>(profileDomainModels);
+            var roleDtos = _mapper.Map<List<RoleDto>>(roleDomainModels);
 
             // Combine the data from both sources if needed
 
             // Return the result as an OK response
-            return Ok(profileDtos);
+            return Ok(roleDtos);
         }
 
         [HttpGet("{id}")]
@@ -50,14 +48,14 @@ namespace REST_Practise.Controllers
             try
             {
                 // Use Entity Framework Core to retrieve a department by its ID
-                var profiles = await _dbContext.Profiles.FirstOrDefaultAsync(d => d.Id == id);
+                var role = await _dbContext.Roles.FirstOrDefaultAsync(d => d.Id == id);
 
-                if (profiles == null)
+                if (role == null)
                 {
                     return NotFound(); // Department not found
                 }
 
-                return Ok(profiles); // Department found and returned
+                return Ok(role); // Department found and returned
             }
             catch (Exception ex)
             {
@@ -68,57 +66,56 @@ namespace REST_Practise.Controllers
 
         [HttpPost]
         //[Authorize(Roles = "Writer")]
-        public async Task<IActionResult> Create([FromBody] AddProfileRequestDto addProfileRequestDto)
+        public async Task<IActionResult> Create([FromBody] AddRoleRequestDto addRoleRequestDto)
         {
 
-            //Map DTO to domain model
-            var profileDomainModel = _mapper.Map<REST_Practise.Model.Profile>(addProfileRequestDto);
 
-            //use Domain model to create difficulty 
-            await _profileRepository.CreateAsync(profileDomainModel);
+            var roleDomainModel = _mapper.Map<Role>(addRoleRequestDto);
 
-            var profileDto = _mapper.Map<ProfileDto>(profileDomainModel);
 
-            //Map domain model into DTO
-            return Ok(profileDto);
+            await _roleRepository.CreateAsync(roleDomainModel);
+
+
+            return Ok(_mapper.Map<RoleDto>(roleDomainModel));
         }
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProfileRequestDto updateProfileRequestDto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateRoleRequestDto updateRoleRequestDto)
         {
             // Check if a department with the given ID exists
-            var existingProfile = await _profileRepository.GetByIdAsync(id);
-            if (existingProfile == null)
+            var existingRole = await _roleRepository.GetByIdAsync(id);
+            if (existingRole == null)
             {
                 return NotFound(); // Department not found
             }
 
             // Map the DTO with updated data to the existing domain model
-            _mapper.Map(updateProfileRequestDto, existingProfile);
+            _mapper.Map(updateRoleRequestDto, existingRole);
 
             // Use the repository to update the department
-            var updatedProfile = await _profileRepository.UpdateAsync(existingProfile);
+            var updatedRole = await _roleRepository.UpdateAsync(existingRole);
 
             // Map the updated department to a DTO
-            var updatedProfileDto = _mapper.Map<ProfileDto>(updatedProfile);
+            var updatedRoleDto = _mapper.Map<RoleDto>(updatedRole);
 
-            return Ok(updatedProfileDto);
+            return Ok(updatedRoleDto);
         }
 
+
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProfile(Guid id)
+        public async Task<IActionResult> DeleteRole(Guid id)
         {
             try
             {
-                var profile = await _profileRepository.DeleteAsync(id);
+                var role = await _roleRepository.DeleteAsync(id);
 
-                if (profile == null)
+                if (role == null)
                 {
                     return NotFound(); // Department not found
                 }
 
-                return Ok("Profile Deleted Sucessfully"); // Department deleted successfully
+                return Ok("Role Deleted Sucessfully"); // Department deleted successfully
             }
             catch (Exception ex)
             {
@@ -126,6 +123,5 @@ namespace REST_Practise.Controllers
                 return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
-
     }
 }

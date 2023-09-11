@@ -1,9 +1,13 @@
-﻿namespace REST_Practise.Model.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace REST_Practise.Model.DTO
 {
     public class DepartmentDto
     {
-        public int Id { get; set; }
+        [Required]
+        public Guid Id { get; set; }
 
+        [Required]
         public string DepartmentName { get; set; }
 
         //public Employee Employee { get; set; }

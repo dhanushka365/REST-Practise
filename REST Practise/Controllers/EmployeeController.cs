@@ -45,7 +45,7 @@ namespace REST_Practise.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace REST_Practise.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateEmployeeRequestDto updateEmployeeRequestDto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateEmployeeRequestDto updateEmployeeRequestDto)
         {
             // Check if a department with the given ID exists
             var existingEmployee = await _employeeRepository.GetByIdAsync(id);
@@ -103,7 +103,7 @@ namespace REST_Practise.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEmployee(int id)
+        public async Task<IActionResult> DeleteEmployee(Guid id)
         {
             try
             {

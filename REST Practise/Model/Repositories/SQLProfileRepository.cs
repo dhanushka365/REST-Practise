@@ -26,7 +26,7 @@ namespace REST_Practise.Model.Repositories
         }
 
 
-        public async Task<Profile> GetByIdAsync(int id)
+        public async Task<Profile> GetByIdAsync(Guid id)
         {
             return await dbcontext.Profiles.FindAsync(id);
         }
@@ -36,7 +36,7 @@ namespace REST_Practise.Model.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Profile> DeleteAsync(int id)
+        public Task<Profile> DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }

@@ -3,10 +3,10 @@
     public interface IProfileRepository
     {
         Task<List<Profile>> GetAllAsync();
-        Task<Profile> GetByIdAsync(int id);
+        Task<Profile> GetByIdAsync(Guid id);
         Task<Profile> CreateAsync(Profile profiles);
 
         Task<Profile> UpdateAsync(Profile profile);
-        Task<Profile> DeleteAsync(int id);
+        Task<Profile> DeleteAsync(Guid id);
     }
 }

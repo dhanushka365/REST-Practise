@@ -1,15 +1,17 @@
-﻿namespace REST_Practise.Model.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace REST_Practise.Model.DTO
 {
     public class SalaryDto
     {
-        public int Id { get; set; }
-
+        [Required]
+        public Guid Id { get; set; }
+        [Required]
         public double BasicSalary { get; set; }
-
+        [Required]
         public double Bonus { get; set; }
+        [Required]
+        public Guid EmployeeId { get; set; }
 
-        public int EmployeeId { get; set; }
-
-        public Employee Employee { get; set; }
     }
 }

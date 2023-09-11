@@ -6,7 +6,7 @@
 
         public double Bonus { get; set; }
 
-        public int EmployeeId { get; set; }
+        public Guid EmployeeId { get; set; }
 
         public Employee Employee { get; set; }
     }

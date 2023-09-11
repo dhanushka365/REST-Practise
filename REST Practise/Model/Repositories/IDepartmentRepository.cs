@@ -4,13 +4,13 @@
     {
         Task<List<Department>> GetAllAsync();
 
-        Task<Department> GetByIdAsync(int id);
+        Task<Department> GetByIdAsync(Guid id);
 
         Task<Department> UpdateAsync(Department department);
 
         Task<Department> CreateAsync(Department department);
 
-        Task <Department> DeleteAsync(int id);
+        Task <Department> DeleteAsync(Guid id);
 
     }
 }

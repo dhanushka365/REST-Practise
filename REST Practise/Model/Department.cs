@@ -4,8 +4,9 @@ namespace REST_Practise.Model
 {
     public class Department
     {
-        [Key]
-        public int Id { get; set; }
+        [Required]
+        public Guid Id { get; set; }
+        [Required]
         public string DepartmentName { get; set; }
 
 

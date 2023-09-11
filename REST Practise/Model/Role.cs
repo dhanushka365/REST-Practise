@@ -1,13 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace REST_Practise.Model
 {
-    public class Role
+    public class Role :IdentityRole<Guid>
     {
-        [Key]
-        public int Id { get; set; }
+      
+        [Required]
+        public override Guid Id { get; set; }
 
-        public string Name { get; set; }
+        [Required]
+        public override string Name { get; set; }
 
     }
 }

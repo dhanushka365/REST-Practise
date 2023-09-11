@@ -1,6 +1,6 @@
 ﻿using REST_Practise.Model;
 using REST_Practise.Model.DTO;
-using AutoMapper;
+
 
 namespace REST_Practise.Mappings
 {
@@ -17,9 +17,10 @@ namespace REST_Practise.Mappings
             CreateMap<Salary, SalaryDto>().ReverseMap();
             CreateMap<AddSalaryRequestDto, Salary>().ReverseMap();
             CreateMap<UpdateSalaryRequestDto, Salary>().ReverseMap();
-            CreateMap<AutoMapper.Profile, ProfileDto>().ReverseMap();
-            CreateMap<AddProfileRequestDto, AutoMapper.Profile>().ReverseMap();
-            CreateMap<UpdateProfileRequestDto, AutoMapper.Profile>().ReverseMap();
+            CreateMap<Profile, ProfileDto>().ReverseMap();
+            CreateMap<AddProfileRequestDto, Profile>().ReverseMap();
+            CreateMap<UpdateProfileRequestDto, Profile>().ReverseMap();
+            CreateMap<Role, RoleDto>().ReverseMap();
         }
     }
 }

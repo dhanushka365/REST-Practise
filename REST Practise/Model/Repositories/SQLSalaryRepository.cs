@@ -25,7 +25,7 @@ namespace REST_Practise.Model.Repositories
         }
 
 
-        public async Task<Salary> GetByIdAsync(int id)
+        public async Task<Salary> GetByIdAsync(Guid id)
         {
             return await dbcontext.Salarys.FindAsync(id);
         }
@@ -35,7 +35,7 @@ namespace REST_Practise.Model.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Salary> DeleteAsync(int id)
+        public Task<Salary> DeleteAsync(Guid id)
         {
             throw new NotImplementedException();
         }

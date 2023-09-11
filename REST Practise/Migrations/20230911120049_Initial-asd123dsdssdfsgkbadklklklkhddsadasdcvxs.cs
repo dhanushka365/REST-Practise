@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace REST_Practise.Migrations
 {
     /// <inheritdoc />
-    public partial class Tableupdate4 : Migration
+    public partial class Initialasd123dsdssdfsgkbadklklklkhddsadasdcvxs : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,9 +17,8 @@ namespace REST_Practise.Migrations
                 name: "Departments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DepartmentName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,9 +29,10 @@ namespace REST_Practise.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NormalizedName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -43,14 +43,13 @@ namespace REST_Practise.Migrations
                 name: "Employees",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BOD = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfileImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,13 +66,23 @@ namespace REST_Practise.Migrations
                 name: "Profiles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -96,11 +105,10 @@ namespace REST_Practise.Migrations
                 name: "Salarys",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BasicSalary = table.Column<double>(type: "float", nullable: false),
                     Bonus = table.Column<double>(type: "float", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,29 +126,20 @@ namespace REST_Practise.Migrations
                 columns: new[] { "Id", "DepartmentName" },
                 values: new object[,]
                 {
-                    { 1, "Engineering" },
-                    { 2, "Quality Assuarance" },
-                    { 3, "Human Resource" },
-                    { 4, "Support" },
-                    { 5, "Managed Services" }
+                    { new Guid("0200d49e-05dc-4f5d-a3af-01eda1629be6"), "Quality Assuarance" },
+                    { new Guid("03b8e584-1938-446a-a149-0fabdadb4f5a"), "Support" },
+                    { new Guid("d8172a0c-a660-477c-b488-997e21153f4a"), "Managed Services" },
+                    { new Guid("ee357f8d-d882-4512-a6cf-ff5dbb3b14ff"), "Engineering" },
+                    { new Guid("faabd354-f4ea-4f70-bc3b-28ccff7051ca"), "Human Resource" }
                 });
 
             migrationBuilder.InsertData(
-                table: "Employees",
-                columns: new[] { "Id", "Address", "BOD", "DepartmentId", "Name", "Position", "ProfileImage" },
+                table: "Roles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "100/128 padukka Road Horana", new DateTime(1996, 8, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Pasindu Uduwela", "Associate", "WWW.pasindu.lk" },
-                    { 2, "100 Homagama Road Maharagama", new DateTime(1990, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, "Kasun Akalanka", "Associate", "WWW.kasun.lk" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Salarys",
-                columns: new[] { "Id", "BasicSalary", "Bonus", "EmployeeId" },
-                values: new object[,]
-                {
-                    { 1, 100000.0, 60000.0, 1 },
-                    { 2, 200000.0, 40000.0, 2 }
+                    { new Guid("2da55f73-7a4d-4fde-acf9-971a6ca00d6d"), "", "admin", "ADMIN" },
+                    { new Guid("e310b041-6333-4ef6-bea7-0c4534e2e0df"), "", "user", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
