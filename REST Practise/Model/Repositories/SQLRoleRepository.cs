@@ -30,9 +30,11 @@ namespace REST_Practise.Model.Repositories
             return await dbcontext.Roles.FindAsync(id);
         }
 
-        public Task<Role> UpdateAsync(Role role)
+        public async Task<Role> UpdateAsync(Role role)
         {
-            throw new NotImplementedException();
+            dbcontext.Entry(role).State = EntityState.Modified; // Mark the department as modified
+            await dbcontext.SaveChangesAsync();
+            return role;
         }
 
         public Task<Role> DeleteAsync(Guid id)

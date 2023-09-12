@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using REST_Practise.Data;
 
@@ -11,9 +12,11 @@ using REST_Practise.Data;
 namespace REST_Practise.Migrations
 {
     [DbContext(typeof(ERPContext))]
-    partial class ERPContextModelSnapshot : ModelSnapshot
+    [Migration("20230911171445_initaldf")]
+    partial class initaldf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,27 +42,27 @@ namespace REST_Practise.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("4c7e4a57-860e-45fd-901c-2f6179357f29"),
+                            Id = new Guid("23488f2d-2518-4e9c-8a8b-d99b5eefbb90"),
                             DepartmentName = "Engineering"
                         },
                         new
                         {
-                            Id = new Guid("a64a7fde-f3d1-4cbb-9092-2b0fb6afd5cd"),
+                            Id = new Guid("614f19d4-ba38-40d1-b6ae-15c8d6085d4b"),
                             DepartmentName = "Quality Assuarance"
                         },
                         new
                         {
-                            Id = new Guid("8c349c27-0972-49cf-9837-b2965530e8c1"),
+                            Id = new Guid("7c085a06-f8f3-4099-83a5-8f243d3708f9"),
                             DepartmentName = "Human Resource"
                         },
                         new
                         {
-                            Id = new Guid("06655555-b847-4c88-8cfe-180cb27cf096"),
+                            Id = new Guid("e17018d6-1142-415f-8df3-48acc5fb007a"),
                             DepartmentName = "Support"
                         },
                         new
                         {
-                            Id = new Guid("830ed997-532e-44cf-ae2e-e9b1971f355b"),
+                            Id = new Guid("b27504b6-22d8-4266-af97-e7b2b4932a50"),
                             DepartmentName = "Managed Services"
                         });
                 });
@@ -184,14 +187,14 @@ namespace REST_Practise.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3b398796-0276-40c0-8089-69dbd11eb99a"),
+                            Id = new Guid("1b990256-5476-43e4-a42b-452a607b51f9"),
                             ConcurrencyStamp = "",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("aa185330-c5fe-44c0-9440-092b89185c61"),
+                            Id = new Guid("79cfbd79-997f-4410-b2be-4e5fe0dfbc01"),
                             ConcurrencyStamp = "",
                             Name = "user",
                             NormalizedName = "USER"

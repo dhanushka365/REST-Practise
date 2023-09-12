@@ -31,14 +31,24 @@ namespace REST_Practise.Model.Repositories
             return await dbcontext.Profiles.FindAsync(id);
         }
 
-        public Task<Profile> UpdateAsync(Profile profile)
+        public async Task<Profile> UpdateAsync(Profile profile)
         {
-            throw new NotImplementedException();
+            dbcontext.Entry(profile).State = EntityState.Modified; // Mark the department as modified
+            await dbcontext.SaveChangesAsync();
+            return profile;
         }
 
-        public Task<Profile> DeleteAsync(Guid id)
+        public async Task<Profile> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var profile = await dbcontext.Profiles.FindAsync(id); // Find the department by ID
+
+            if (profile != null)
+            {
+                dbcontext.Profiles.Remove(profile); // Mark the department for deletion
+                await dbcontext.SaveChangesAsync(); // Delete the department from the database
+            }
+
+            return profile; // Return the deleted department or null if not found
         }
     }
 }

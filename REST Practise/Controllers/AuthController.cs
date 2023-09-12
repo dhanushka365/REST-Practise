@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using REST_Practise.Model;
+using REST_Practise.Model.Repositories;
 using REST_Practise.Repositories;
 using TestWebAPI.Model.DTO;
 
@@ -16,13 +17,15 @@ namespace TestWebAPI.Controllers
 
         private readonly UserManager<Profile> userManager;
         private readonly ITokenRepository tokenRepository;
+        private readonly IRoleRepository roleRepository;
 
 
 
-        public AuthController(UserManager<Profile> userManager, ITokenRepository tokenRepository)
+        public AuthController(UserManager<Profile> userManager, ITokenRepository tokenRepository, IRoleRepository roleRepository)
         {
             this.userManager = userManager;
             this.tokenRepository = tokenRepository;
+            this.roleRepository = roleRepository;
         }
 
 
@@ -34,14 +37,18 @@ namespace TestWebAPI.Controllers
         {
             var profile = new Profile
             {
-                UserName = registerRequestDTO.Username,
-                Email = registerRequestDTO.Username
+
+                UserName = registerRequestDTO.UserName,
+                Email = registerRequestDTO.Email,
+                PhoneNumber = registerRequestDTO.PhoneNumber,
+                EmployeeId = registerRequestDTO.EmployeeId,
+                RoleId = registerRequestDTO.Roles
             };
             var IdentityResult = await userManager.CreateAsync(profile, registerRequestDTO.Password);
 
             if (IdentityResult.Succeeded)
             {
-                IdentityResult = await userManager.AddToRolesAsync(profile, registerRequestDTO.Roles);
+                //IdentityResult = await userManager.AddToRolesAsync(profile, registerRequestDTO.Roles);
 
 
 

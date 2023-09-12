@@ -30,9 +30,11 @@ namespace REST_Practise.Model.Repositories
             return await dbcontext.Salarys.FindAsync(id);
         }
 
-        public Task<Salary> UpdateAsync(Salary salary)
+        public async Task<Salary> UpdateAsync(Salary salary)
         {
-            throw new NotImplementedException();
+            dbcontext.Entry(salary).State = EntityState.Modified; // Mark the department as modified
+            await dbcontext.SaveChangesAsync();
+            return salary;
         }
 
         public Task<Salary> DeleteAsync(Guid id)

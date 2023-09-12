@@ -44,9 +44,11 @@ namespace REST_Practise.Model.Repositories
             return employee; // Return the deleted department or null if not found
         }
 
-        public Task<Employee> UpdateAsync(Employee employee)
+        public async Task<Employee> UpdateAsync(Employee employee)
         {
-            throw new NotImplementedException();
+            dbcontext.Entry(employee).State = EntityState.Modified; // Mark the department as modified
+            await dbcontext.SaveChangesAsync();
+            return employee;
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using REST_Practise.Data;
 
@@ -11,9 +12,11 @@ using REST_Practise.Data;
 namespace REST_Practise.Migrations
 {
     [DbContext(typeof(ERPContext))]
-    partial class ERPContextModelSnapshot : ModelSnapshot
+    [Migration("20230912004919_Initialone")]
+    partial class Initialone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

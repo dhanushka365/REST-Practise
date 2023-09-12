@@ -21,6 +21,7 @@ namespace REST_Practise.Mappings
             CreateMap<AddProfileRequestDto, Profile>().ReverseMap();
             CreateMap<UpdateProfileRequestDto, Profile>().ReverseMap();
             CreateMap<Role, RoleDto>().ReverseMap();
+            CreateMap<Employee, DepartmentDto>();
         }
     }
 }
