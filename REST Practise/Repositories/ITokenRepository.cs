@@ -6,7 +6,7 @@ namespace REST_Practise.Repositories
 {
     public interface ITokenRepository
     {
-        string CreateJWTToken(Profile profile, List<string> roles);
+        string CreateJWTToken(Profile profile, Role roles);
       
     }
 }

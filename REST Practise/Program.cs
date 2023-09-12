@@ -22,6 +22,23 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 //-----------------------------------------------------------------------------------------------------
+
+builder.Services.AddMvc();
+
+builder.Services.AddDbContext<ERPContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("EmpConnectionString")));
+
+//builder.Services.AddDbContext<ERPAuthContext>(options =>
+//options.UseSqlServer(builder.Configuration.GetConnectionString("EmpAuthConnectionString")));
+
+
+builder.Services.AddScoped<IDepartmentRepository,SQLDepartmentRepository>();
+builder.Services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
+builder.Services.AddScoped<IProfileRepository, SQLProfileRepository>();
+builder.Services.AddScoped<ISalaryRepository, SQLSalaryRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
+builder.Services.AddScoped<IRoleRepository, SQLRoleRepository>();
+
 //Add Identity solution
 builder.Services.AddIdentityCore<Profile>()
     .AddRoles<Role>()
@@ -29,6 +46,7 @@ builder.Services.AddIdentityCore<Profile>()
     .AddEntityFrameworkStores<ERPContext>()
     .AddDefaultTokenProviders();
 //-------------------------------------------------------------------------------------------------------
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequireDigit = false;
@@ -55,22 +73,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
     });
-builder.Services.AddMvc();
-
-builder.Services.AddDbContext<ERPContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("EmpConnectionString")));
-
-//builder.Services.AddDbContext<ERPAuthContext>(options =>
-//options.UseSqlServer(builder.Configuration.GetConnectionString("EmpAuthConnectionString")));
-
-
-builder.Services.AddScoped<IDepartmentRepository,SQLDepartmentRepository>();
-builder.Services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
-builder.Services.AddScoped<IProfileRepository, SQLProfileRepository>();
-builder.Services.AddScoped<ISalaryRepository, SQLSalaryRepository>();
-builder.Services.AddScoped<ITokenRepository, TokenRepository>();
-builder.Services.AddScoped<IRoleRepository, SQLRoleRepository>();
-
+//------------------------------------------------------------------------------------------------------
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

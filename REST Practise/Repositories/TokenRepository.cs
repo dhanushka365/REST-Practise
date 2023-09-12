@@ -15,18 +15,21 @@ namespace REST_Practise.Repositories
             this.configuration = configuration;
         }
 
-        public string CreateJWTToken(Profile profile, List<string> roles)
+        public string CreateJWTToken(Profile profile,Role roles)
         {
             //throw new NotImplementedException();
 
             var claims = new List<Claim>();
 
-            claims.Add(new Claim(ClaimTypes.Email, profile.Email));
+            claims.Add(new Claim(ClaimTypes.Name, profile.UserName));
+            claims.Add(new Claim(ClaimTypes.Role, roles.Name));
 
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
+
+
+            //foreach (var role in roles)
+            //{
+            //    claims.Add(new Claim(ClaimTypes.Role, role));
+            //}
 
 #pragma warning disable CS8604 // Possible null reference argument.
             var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));

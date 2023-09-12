@@ -37,9 +37,17 @@ namespace REST_Practise.Model.Repositories
             return salary;
         }
 
-        public Task<Salary> DeleteAsync(Guid id)
+        public async Task<Salary> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var salary = await dbcontext.Salarys.FindAsync(id); // Find the department by ID
+
+            if (salary != null)
+            {
+                dbcontext.Salarys.Remove(salary); // Mark the department for deletion
+                await dbcontext.SaveChangesAsync(); // Delete the department from the database
+            }
+
+            return salary; // Return the deleted department or null if not found
         }
     }
 }

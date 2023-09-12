@@ -49,11 +49,10 @@ namespace TestWebAPI.Controllers
             if (IdentityResult.Succeeded)
             {
                 //IdentityResult = await userManager.AddToRolesAsync(profile, registerRequestDTO.Roles);
-
-
-
+      
                 if (IdentityResult.Succeeded)
                 {
+
                     return Ok("The User Has been Registered Successfully");
                 }
 
@@ -69,7 +68,7 @@ namespace TestWebAPI.Controllers
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDTO)
         {
-            var user = await userManager.FindByEmailAsync(loginRequestDTO.Username);
+            var user = await userManager.FindByNameAsync(loginRequestDTO.Username);
 
 
 
@@ -78,10 +77,11 @@ namespace TestWebAPI.Controllers
                 var check = await userManager.CheckPasswordAsync(user, loginRequestDTO.Password);
                 if (check)
                 {
-                    var roles = await userManager.GetRolesAsync(user);
+                    
+                    var roles = await roleRepository.GetByIdAsync(user.RoleId);
                     if (roles != null)
                     {
-                        var token = tokenRepository.CreateJWTToken(user, roles.ToList());
+                        var token = tokenRepository.CreateJWTToken(user, roles);
                         var response = new LoginResponseDto
                         {
                             JwtToken = token,

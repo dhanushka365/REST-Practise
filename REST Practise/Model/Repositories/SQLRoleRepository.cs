@@ -37,9 +37,17 @@ namespace REST_Practise.Model.Repositories
             return role;
         }
 
-        public Task<Role> DeleteAsync(Guid id)
+        public async Task<Role> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var role = await dbcontext.Roles.FindAsync(id); // Find the department by ID
+
+            if (role != null)
+            {
+                dbcontext.Roles.Remove(role); // Mark the department for deletion
+                await dbcontext.SaveChangesAsync(); // Delete the department from the database
+            }
+
+            return role; // Return the deleted department or null if not found
         }
     }
 }
